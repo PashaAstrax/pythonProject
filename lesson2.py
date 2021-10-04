@@ -84,11 +84,12 @@
 #  написати декоратор до цієї функції, який замінює нижні підчеркування на пробіли і повертає це значення
 
 # def decor(func):
-#     def inner():
-#         func(a="_", b=" ")
+#     def inner(*args, **kwargs):
+#         return func(*args, **kwargs).replace("_", " ")
 #     return inner
 #
 # @decor
-# def pr(a, b):
-#     print("Hello_boss_!!!".replace(a, b))
-# pr()
+# def pr():
+#     return "Hello_boss_!!!"
+#
+# print(pr())
