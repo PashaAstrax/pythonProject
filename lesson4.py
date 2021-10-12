@@ -162,10 +162,6 @@ class Notebook:
     def info(self):
         return self.jotter.items()
 
-    def sum_price(self):
-        return self.jotter.items()
-
-
     def delete(self, name):
         if name in self.jotter:
             del self.jotter[name]
