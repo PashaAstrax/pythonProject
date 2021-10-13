@@ -1,26 +1,27 @@
 class Notebook:
 
-    def __init__(self):
-        self.jotter = {}
-
-    def add(self, key, val):
-        self.jotter[key] = val
-        return "\'Запись создана\'"
+    def add(self, name, price):
+        with open("note.txt", "a") as add_file:
+            add_file.write(f"{name} - {price}$\n")
+            print("\'Запись создана\'")
 
     def find(self, name):
-        if name in self.jotter:
-            data = ' '.join(self.jotter[name])
-            return f"name: '{name.capitalize()}', price: {data}$"
-        return "\'Покупка не найдена\'"
+        with open("note.txt") as find_file:
+            for line in find_file:
+                if name in line:
+                    print(line)
 
     def info(self):
-        return self.jotter.items()
+        with open("note.txt") as file:
+            print(file.read())
 
-    def delete(self, name):
-        if name in self.jotter:
-            del self.jotter[name]
-            return f'"{name}" удален'
-        return "\'Нет такого в списке\'"
+    def delete(self, names):
+         with open("note.txt", 'r+') as del_file:
+            data = ''.join(filter(lambda l: names not in l, del_file))
+            del_file.seek(0)
+            del_file.truncate(0)
+            del_file.write(data)
+            return f"'{names}' удален"
 
 print('''\nВыберите что вы хотите сделать:
     * 1 - Создать запись
@@ -37,26 +38,21 @@ while True:
     if command == '1':
         name = input("Введите название покупки: ")
         price = input("Введите цену покупки: ")
-        print(book.add(name, [price]))
+        book.add(name, price)
 
     elif command == '2':
         name = input("Чтобы найти, введите название покупки: ")
-        print(book.find(name))
+        book.find(name)
 
     elif command == '3':
-        for name, data in book.info():
-            data = ' '.join(data)
-            print(f"name: '{name.capitalize()}', price: {data}$")
+        book.info()
 
     elif command == '4':
-        name = input("Введите покупку которую хотите удалить:  ")
-        print(book.delete(name))
+        names = input("Введите покупку которую хотите удалить:  ")
+        print(book.delete(names))
 
     elif command == '5':
         break
 
     else:
         print('Неизвестная команда')
-#######################################################################################################################
-#######################################################################################################################
-#######################################################################################################################
