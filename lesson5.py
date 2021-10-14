@@ -62,7 +62,7 @@
 import json
 
 with open('users.txt') as file:
-    users = [user.strip() for user in file]
+    users = [user.strip() for user in file.readlines()]
     res = []
     for item in users:
         name, age, gender = item.split('|')
